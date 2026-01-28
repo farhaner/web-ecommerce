@@ -1,5 +1,5 @@
 <?php
-include 'config/db.php';
+include 'config/database.php';
 
 $total = 0;
 foreach ($_SESSION['cart'] as $id => $qty) {
