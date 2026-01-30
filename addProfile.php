@@ -1,0 +1,113 @@
+<?php
+include_once 'config/database.php';
+
+$error = '';
+$success = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $fullname  = trim($_POST['fullname']);
+    $nickname  = trim($_POST['nickname']);
+    $email     = trim($_POST['email']);
+    $address   = trim($_POST['address']);
+    $password  = trim($_POST['password']);
+
+    if ($fullname == '' || $nickname == '' || $email == '' || $email == '') {
+        $error = "Semua field wajib diisi!";
+    }
+
+    // HASH PASSWORD (WAJIB) nanti akan di implementasi
+    // $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    $query = mysqli_query($conn, "
+            INSERT INTO users 
+            (fullname, nickname, email, address, password, is_active)
+            VALUES
+            ('$fullname', '$nickname', '$email', '$address', '$password', '1')
+        ");
+
+    if ($query) {
+        $_SESSION['success'] = "Registrasi berhasil, silahkan login";
+        header("Location: login.php");
+        exit;
+    }
+}
+include_once 'utils/header.php';
+?>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="text-center mb-5">Register</h4>
+
+                    <!-- FOTO PROFILE -->
+                    <!-- <div class="text-center mb-4">
+                        <img src="icon/profile.jpg"
+                            class="rounded-circle"
+                            width="120"
+                            height="120"
+                            style="object-fit: cover;">
+                    </div> -->
+
+                    <?php if ($success): ?>
+                        <div class="alert alert-success"> Silahkan login </div>
+                    <?php endif; ?>
+
+                    <!-- FORM PROFILE -->
+                    <form
+                        method="post"
+                        enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="fullname" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nickname</label>
+                            <input type="text" name="nickname" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" name="address" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="text" name="password" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Photo</label>
+                            <input type="file" name="foto" class="form-control" accept="image/*">
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-3 mt-3">
+                            <button class="btn btn-success btn-sm" type="submit">
+                                Save
+                            </button>
+                            <a href="index.php" class="btn btn-danger btn-sm">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<?php
+include_once 'utils/footer.php';
+?>

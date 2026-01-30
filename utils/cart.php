@@ -58,7 +58,7 @@ if ($role == 'R01') {
             <?php if ($role == 'R02') : ?>
               <div class="d-flex gap-2 mt-3">
                 <button class="btn btn-primary btn-sm">Add Cart</button>
-                <a href="checkout.php?id=<?= $row['id']; ?>" class="btn btn-success btn-sm">
+                <a href="confirmation.php?id=<?= $row['id']; ?>" class="btn btn-success btn-sm">
                   Checkout
                 </a>
               </div>

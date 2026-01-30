@@ -1,70 +1,79 @@
 <?php
 include_once "config/database.php";
 
-$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+$isLogin = isset($_SESSION['role']);
+$role = $isLogin ? $_SESSION['role'] : '';
+// var_dump($role);
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
     <div class="container">
-        <a class="navbar-brand" href="index.php">E-Commerce</a>
+        <a class="navbar-brand" href="#">E-Commerce</a>
 
-        <!-- HAMBURGER BUTTON (WAJIB DI SINI) -->
-        <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <?php if ($isLogin): ?>
 
-        <!-- MENU COLLAPSE -->
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <!-- HAMBURGER BUTTON (WAJIB DI SINI) -->
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <!-- KANAN -->
-            <div class="ms-auto d-flex align-items-center gap-3">
+            <!-- MENU COLLAPSE -->
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-                <?php if ($role == 'R01') : ?>
-                    <a href="addProduct.php">
-                        <img src="icon/plus.png" height="30">
-                    </a>
-                <?php endif; ?>
-                <?php if ($role == 'R02') : ?>
-                    <a href="checkoutProcess.php">
-                        <img src="icon/shoping-cart.png" height="30">
-                    </a>
-                <?php endif; ?>
-                <?php if ($role == 'R03') : ?>
-                    <a href="activation.php">
-                        <img src="icon/notif.png" height="30">
-                    </a>
-                    <a href="cart.php">
-                        <img src="icon/pending.png" height="30">
-                    </a>
-                <?php endif; ?>
+                <!-- KANAN -->
+                <div class="ms-auto d-flex align-items-center gap-3">
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                    <?php if ($role == 'R01') : ?>
+                        <a href="addProduct.php">
+                            <img src="icon/plus.png" height="30">
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($role == 'R02') : ?>
+                        <a href="listCart.php">
+                            <img src="icon/shoping-cart.png" height="30">
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($role == 'R03') : ?>
+                        <a href="activation.php">
+                            <img src="icon/notif.png" height="30">
+                        </a>
+                        <a href="cart.php">
+                            <img src="icon/pending.png" height="30">
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($role == '') : ?>
+
+                    <?php endif; ?>
+
+
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <div class="dropdown ms-3">
-            <a href="#"
-                class="dropdown-toggle text-decoration-none"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <img src="icon/buku.png"
-                    width="40"
-                    height="40"
-                    class="rounded-circle"
-                    style="cursor:pointer">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-                <li><a class="dropdown-item" href="editProfile.php">Profile</a></li>
-                <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
-            </ul>
-        </div>
-        
+            <div class="dropdown ms-3">
+                <a href="#"
+                    class="dropdown-toggle text-decoration-none"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <img src="icon/buku.png"
+                        width="40"
+                        height="40"
+                        class="rounded-circle"
+                        style="cursor:pointer">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li><a class="dropdown-item" href="editProfile.php">Profile</a></li>
+                    <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
+                </ul>
+            </div>
+        <?php endif; ?>
+
     </div>
 </nav>
