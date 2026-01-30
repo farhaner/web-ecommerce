@@ -10,7 +10,7 @@
 <body>
     <?php 
     include_once 'utils/navbar.php';
-    include_once 'utils/notActiveCart.php';
+    include_once 'utils/cart.php';
     ?> 
 </body>
 

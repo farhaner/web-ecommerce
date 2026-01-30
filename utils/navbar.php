@@ -48,10 +48,23 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                 </form>
             </div>
         </div>
-        <div class="profile ms-3">
-            <a href="editUser.php">
-                <img src="icon/buku.png" class="rounded-circle" width="40" height="40" alt="Profile">
+
+        <div class="dropdown ms-3">
+            <a href="#"
+                class="dropdown-toggle text-decoration-none"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <img src="icon/buku.png"
+                    width="40"
+                    height="40"
+                    class="rounded-circle"
+                    style="cursor:pointer">
             </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+                <li><a class="dropdown-item" href="editProfile.php">Profile</a></li>
+                <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
+            </ul>
         </div>
+        
     </div>
 </nav>

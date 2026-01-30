@@ -58,7 +58,7 @@ include_once 'config/database.php';
                 <button class="btn btn-success btn-sm" type="submit">
                   Save Changes
                 </button>
-                <a href="index.php" class="btn btn-danger btn-sm">
+                <a href="main.php" class="btn btn-danger btn-sm">
                   Cancel
                 </a>
               </div>
