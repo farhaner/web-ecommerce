@@ -20,8 +20,8 @@ if (isset($_POST['login'])) {
 
   if ($result->num_rows == 1) {
     $user = $result->fetch_assoc();
+    // if (password_verify($password, $user['password'])) {
     if ($password === $user['password']) {
-
       if ($user['is_active'] == 0) {
         $inactive = true;
       } else {
@@ -32,6 +32,7 @@ if (isset($_POST['login'])) {
         } else {
           header("Location: dashboardUser.php");
         }
+
         exit;
       }
     } else {
@@ -43,6 +44,7 @@ if (isset($_POST['login'])) {
 }
 
 include_once 'utils/header.php';
+include_once 'utils/navbar.php';
 ?>
 
 <div class="container mt-5" style="max-width: 400px;">
@@ -57,7 +59,7 @@ include_once 'utils/header.php';
         </div>
       <?php unset($_SESSION['success']);
       endif; ?>
-      
+
       <?php if ($inactive): ?>
         <div class="alert alert-warning mb-2">
           Akun Anda belum aktif. Silakan tunggu persetujuan admin.
@@ -70,7 +72,7 @@ include_once 'utils/header.php';
         </div>
       <?php endif; ?>
 
-      <form method="POST" action="">
+      <form method="POST">
         <div class="mb-3">
           <label class="form-label">Email address</label>
           <input type="email" name="email" class="form-control" required>

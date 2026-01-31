@@ -1,5 +1,6 @@
 <?php
 include_once 'config/database.php';
+include_once 'utils/auth.php';
 
 date_default_timezone_set('Asia/Jakarta');
 

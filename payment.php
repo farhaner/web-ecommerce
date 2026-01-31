@@ -1,11 +1,7 @@
 <?php
 include_once 'config/database.php';
 include_once 'utils/header.php';
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: index.php");
-    exit;
-}
+include_once 'utils/auth.php';
 
 $payment = $_POST['payment'] ?? '';
 

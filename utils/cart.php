@@ -6,7 +6,7 @@ if ($role == 'R01') {
 } else if ($role == 'R02') {
   $query = mysqli_query($conn, "SELECT id, is_active, name, description, price, stock, image_url FROM products WHERE is_active = 1");
 } else {
-  $query = mysqli_query($conn, "SELECT id, is_active, name, description, price, stock, image_url FROM products WHERE is_active = 0");
+  $query = mysqli_query($conn, "SELECT id, nickname, fullname, email, address, is_active FROM users WHERE is_active = 0");
 
   if (isset($_GET['action'], $_GET['id']) && $role == 'R03') {
 
@@ -25,6 +25,29 @@ if ($role == 'R01') {
     exit;
   }
 }
+
+$keyword = $_POST['keyword'] ?? '';
+
+if ($keyword !== '') {
+    $stmt = $conn->prepare(
+        "SELECT id, is_active, name, description, price, stock, image_url
+         FROM products
+         WHERE name LIKE ? AND is_active = 1"
+    );
+
+    $search = "%" . $keyword . "%";
+    $stmt->bind_param("s", $search);
+    $stmt->execute();
+    $query = $stmt->get_result();
+} else {
+    $query = mysqli_query(
+        $conn,
+        "SELECT id, is_active, name, description, price, stock, image_url
+         FROM products
+         WHERE is_active = 1"
+    );
+}
+
 ?>
 <div class="container mt-4">
   <div class="row g-4">
@@ -68,13 +91,13 @@ if ($role == 'R01') {
               <div class="d-flex gap-2 mt-3">
                 <a href="?action=approve&id=<?= $row['id']; ?>"
                   class="btn btn-success btn-sm"
-                  onclick="return confirm('Approve this product?')">
+                  onclick="return confirm('Approve this new seller?')">
                   Approve
                 </a>
 
                 <a href="?action=reject&id=<?= $row['id']; ?>"
                   class="btn btn-danger btn-sm"
-                  onclick="return confirm('Reject this product?')">
+                  onclick="return confirm('Reject this new seller?')">
                   Reject
                 </a>
               </div>

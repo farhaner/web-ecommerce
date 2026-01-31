@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fullname  = trim($_POST['fullname']);
     $nickname  = trim($_POST['nickname']);
     $email     = trim($_POST['email']);
+    $shopname     = trim($_POST['shopname']);
     $address   = trim($_POST['address']);
     $password  = trim($_POST['password']);
 
@@ -21,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     $query = mysqli_query($conn, "
             INSERT INTO users 
-            (fullname, nickname, email, address, password, is_active)
+            (fullname, nickname, email, address, password, shop_name, is_active, role_id)
             VALUES
-            ('$fullname', '$nickname', '$email', '$address', '$password', '1')
+            ('$fullname', '$nickname', '$email', '$address', '$password', '$shopname', '0', 'R02')
         ");
 
     if ($query) {
@@ -42,7 +43,7 @@ include_once 'utils/header.php';
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="text-center mb-5">Register</h4>
+                    <h4 class="text-center mb-5">Register Shop</h4>
 
                     <!-- FOTO PROFILE -->
                     <!-- <div class="text-center mb-4">
@@ -54,7 +55,7 @@ include_once 'utils/header.php';
                     </div> -->
 
                     <?php if ($success): ?>
-                        <div class="alert alert-success"> Silahkan login </div>
+                        <div class="alert alert-success">Account Created, please login!</div>
                     <?php endif; ?>
 
                     <!-- FORM PROFILE -->
@@ -78,6 +79,11 @@ include_once 'utils/header.php';
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Shop Name</label>
+                            <input type="text" name="shopname" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">Address</label>
                             <input type="text" name="address" class="form-control" required>
                         </div>
@@ -94,7 +100,7 @@ include_once 'utils/header.php';
 
                         <div class="d-flex justify-content-end gap-3 mt-3">
                             <button class="btn btn-success btn-sm" type="submit">
-                                Save
+                                Open Shop
                             </button>
                             <a href="index.php" class="btn btn-danger btn-sm">
                                 Cancel

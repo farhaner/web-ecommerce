@@ -18,7 +18,7 @@ if (isset($_GET['action'], $_GET['id'])) {
         $status = 0;
         $success = 'rejected';
     } else {
-        header("Location: dashboardAdmin.php");
+        header("Location: listSeller.php");
         exit;
     }
 
@@ -28,17 +28,17 @@ if (isset($_GET['action'], $_GET['id'])) {
         WHERE id = $id
     ");
 
-    header("Location: activation.php");
+    header("Location: listSeller.php");
     exit;
 }
 
 /* =====================
-   QUERY USER BELUM AKTIF
+   QUERY USER AKTIF
 ===================== */
 $query = mysqli_query($conn, "
-    SELECT id, nickname, fullname, email, address, is_active 
+     SELECT id, nickname, fullname, email, address, is_active 
     FROM users 
-    WHERE is_active = 0 AND role_id = 'R02'
+    WHERE is_active = 1 AND role_id = 'R02'
 ");
 
 $keyword = $_POST['keyword'] ?? '';
@@ -47,7 +47,8 @@ if ($keyword !== '') {
     $stmt = $conn->prepare(
         "SELECT id, nickname, fullname, email, address, is_active 
          FROM users 
-         WHERE fullname LIKE ? AND is_active = 0 AND role_id = 'R02'"
+         WHERE fullname LIKE ? AND is_active = 1 AND role_id = 'R02'
+         "
     );
 
     $search = "%" . $keyword . "%";
@@ -59,7 +60,7 @@ if ($keyword !== '') {
         $conn,
         "SELECT id, nickname, fullname, email, address, is_active 
          FROM users 
-         WHERE is_active = 0 AND role_id = 'R02'"
+         WHERE is_active = 1 AND role_id = 'R02'"
     );
 }
 
@@ -93,17 +94,17 @@ include_once 'utils/navbar.php';
                         <p class="text-muted"><?= $row['address']; ?></p>
 
                         <div class="d-flex gap-2 mt-3">
-                            <a href="?action=approve&id=<?= $row['id']; ?>"
+                            <!-- <a href="?action=approve&id=<?= $row['id']; ?>"
                                 class="btn btn-success btn-sm"
                                 onclick="return confirm('Approve this user?')">
                                 Approve
-                            </a>
+                            </a> -->
 
-                            <!-- <a href="?action=reject&id=<?= $row['id']; ?>"
+                            <a href="?action=reject&id=<?= $row['id']; ?>"
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('Reject this user?')">
-                                Reject
-                            </a> -->
+                                Inactive
+                            </a>
                         </div>
 
                     </div>
